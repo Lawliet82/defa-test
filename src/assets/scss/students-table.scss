@@ -39,6 +39,13 @@
     &:hover {
         background-color: $yellow;
     }
+    &.checked {
+        background-color: $blue;
+        .students__table-cell {
+            color: #ffffff;
+            border-color: #fff;
+        }
+    }
 }
 
 .students__table-cell {
