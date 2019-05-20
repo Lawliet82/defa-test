@@ -1,0 +1,76 @@
+// .modal {
+
+// }
+.modal__overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, .25);
+    cursor: pointer;
+}
+.modal__wrap {
+    position: absolute;
+    width: auto;
+    height: auto;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.modal__form {
+    min-height: 400px;
+    width: 450px;
+    font-size: 13px;
+    color: #000000;
+    background-color: #ffffff;
+    padding: 30px 20px;
+    position: relative;
+}
+.modal__input {
+    width: 380px;
+    padding: 10px 15px;
+    border: 1px solid #777;
+    margin-bottom: 25px;
+    display: block;
+    margin: 0 auto 25px auto;
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.modal__submit {
+    font-size: 15px;
+    width: 250px;
+    padding: 20px;
+    border-radius: 40px;
+    outline: 0;
+    display: block;
+    margin: auto;
+}
+
+.modal__close {
+    position: absolute;
+    top: -20px;
+    right: 0;
+}
+
+.modal__error-message {
+    font-size: 16px;
+    color: #ff0000;
+}
+
+.modal__error-errs {
+    margin-top: 10px;
+}
+
+.modal__error-item {
+    font-size: 13px;
+    margin: 10px 0;
+}

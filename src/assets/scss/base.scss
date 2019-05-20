@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import 'mixins';
+
+* {
+    box-sizing: border-box;
+}
+
+$main-font: 'Roboto', sans-serif;
+$grey: #fafafa;
+$yellow: #fff701;
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-family: $main-font;
+    line-height: 1.15;
+}

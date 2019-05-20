@@ -1,0 +1,65 @@
+.students__table {
+    margin: 50px auto;
+    max-width: 1170px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.students__table-head {
+    width: 100%;
+    font-size: 16px;
+}
+.students__table-head--cell {
+    width: auto;
+    padding: 10px;
+    border-right: 1px solid #000;
+    text-align: center;
+    border-bottom: 1px solid #000;
+    &:first-child {
+        width: 15%;
+    }
+    &:last-child {
+        border-right: 0;
+    }
+}
+
+.students__table-row {
+    border-bottom: 1px solid #000;
+    background-color: #fff;
+    @include transition();
+
+    &:last-child {
+        border-bottom: 0;
+    }
+
+    &:nth-child(odd) {
+        background-color: $grey;
+    }
+
+    &:hover {
+        background-color: $yellow;
+    }
+}
+
+.students__table-cell {
+    padding: 20px;
+    text-align: center;
+    border-right: 1px solid #000;
+    position: relative;
+    &:last-child {
+        border-right: 0;
+    }
+}
+.students__del-btn {
+    display: block;
+    margin: 20px 20px 20px auto;
+}
+
+.students__table-check-label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
