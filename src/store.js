@@ -115,16 +115,27 @@ export default new Vuex.Store({
           break;
         }
       }
-    }
+    },
 
+    UPDATE_INFO (state, value) {
+      let students = state.students;
+      for ( let i = 0; i < students.length; i++ ) {
+        if ( value.id === students[i].id ) {
+          // students[i] = value;
+          Vue.set(students[i], 'name', value.name)
+          break;
+        }
+      }
+      state.edited_student = null;
+    }
 
 
 
   },
 
   actions: {
-    add(store, payload) {
-      store.commit('ADD_STUDENT', payload)
+    add(store, value) {
+      store.commit('ADD_STUDENT', value)
     },
     remove_student(store, index) {
       store.commit('REMOVE_STUDENT', index)
@@ -137,6 +148,9 @@ export default new Vuex.Store({
     },
     edit_item(store, student_id) {
       store.commit('EDIT_ITEM', student_id)
+    },
+    update_info(store, value) {
+      store.commit('UPDATE_INFO', value)
     }
   },
 

@@ -14,7 +14,7 @@
 
             <tr class="students__table-row"
                 v-if="get_students"
-                v-for="(item, index) in get_students" :key="index"
+                v-for="(item, index) in get_students" :key="item.id"
                 @click="update_check(item.id)"
                 :class="{checked : item.checked }"
                 >
@@ -59,7 +59,8 @@ import {mapGetters, mapActions} from 'vuex';
 export default {
     data() {
         return {
-            checks: []
+            checks: [],
+
         }
     },
     computed: {

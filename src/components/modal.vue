@@ -49,15 +49,16 @@ export default {
     },
     updated() {
         if (this.get_edited) {
-            this.student.name = this.get_edited.name;
-            this.student.surname = this.get_edited.surname;
-            this.student.date = this.get_edited.date;
-            this.student.group = this.get_edited.group;
+            // this.student.name = this.get_edited.name;
+            // this.student.surname = this.get_edited.surname;
+            // this.student.date = this.get_edited.date;
+            // this.student.group = this.get_edited.group;
         }
     },
     methods: {
         ...mapActions([
             'add',
+            'update_info'
         ]),
         sendStudent() {
             this.add({
@@ -96,12 +97,24 @@ export default {
             }
 
             if (!this.errors.length) {
-                this.sendStudent();
-                this.student.name = '';
-                this.student.surname = '';
-                this.student.date = '';
-                this.student.group = '';
-                return true;
+                if (this.get_edited) {
+                    this.update_info({
+                        id: this.get_edited.id,
+                        name: this.student.name,
+                        surname: this.student.surname,
+                        date: this.student.date, 
+                        group: this.student.group,
+                        checked: false
+                    });
+                } else {
+                    this.sendStudent();
+                    this.student.name = '';
+                    this.student.surname = '';
+                    this.student.date = '';
+                    this.student.group = '';
+                }
+                this.show_modal = false;
+                return 
             }
         },
         validName(name) {
