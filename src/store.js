@@ -121,8 +121,7 @@ export default new Vuex.Store({
       let students = state.students;
       for ( let i = 0; i < students.length; i++ ) {
         if ( value.id === students[i].id ) {
-          // students[i] = value;
-          Vue.set(students[i], 'name', value.name)
+          Object.assign(students[i], value);
           break;
         }
       }
