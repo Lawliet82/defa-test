@@ -3,14 +3,6 @@
     <modal></modal>
     <studentsList></studentsList>
     <search></search>
-  <!--   <component
-      v-for="(block, key) in pageBlocks"
-      :key="key"
-      :is="allow(block.name)"
-      :content="block.content"
-      ></component>
-  -->
-
   </div>
 </template>
 
