@@ -75,24 +75,25 @@ export default {
             this.errors = [];
             if (!this.student.name) {
                 this.errors.push('Укажите имя.');
-            } else if (!this.validName(this.student.name)) {
+            } else if (!this.validation(this.student.name, 'name')) {
                 this.errors.push('Укажите корректное имя.');
             }
 
             if (!this.student.surname) {
                 this.errors.push('Укажите фамилию.');
-            } else if (!this.validName(this.student.surname)) {
+            } else if (!this.validation(this.student.surname, 'name')) {
                 this.errors.push('Укажите корректную  фамилию.');
             }
+
             if (!this.student.date) {
                 this.errors.push('Укажите дату рождения.');
-            } else if (!this.validDate(this.student.date)) {
+            } else if (!this.validation(this.student.date, 'date')) {
                 this.errors.push('Укажите корректную  дату. (Нпр. 11.11.1999)');
             }
 
             if (!this.student.group) {
                 this.errors.push('Укажите группу.');
-            } else if (!this.validGroup(this.student.group)) {
+            } else if (!this.validation(this.student.group, 'group')) {
                 this.errors.push('Укажите корректную  группу. (Нпр. ИВТ-1-15)');
             }
 
@@ -117,18 +118,27 @@ export default {
                 return 
             }
         },
-        validName(name) {
-            let pattern = /^[а-яА-Я ]{2,7}$/;
-            return pattern.test(name);
-        },
-        validDate(date) {
-            let pattern = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
-            return pattern.test(date);
-        },
-        validGroup(group) {
-            let pattern = /^[А-Я]{3}[-]{1}[1-5]{1}[-]{1}[0-9]{2}$/;
-            return pattern.test(group);
-        },
+        validation(value, validType) {
+            let pattern = null;
+
+            switch (validType) {
+                case 'name': 
+                    pattern = /^[а-яА-Я ]{2,7}$/;
+                    break;
+                
+                case 'date': 
+                    pattern = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
+                    break;
+
+                case 'group': 
+                    pattern = /^[А-Я]{3}[-]{1}[1-5]{1}[-]{1}[0-9]{2}$/;
+                    break;
+                default:
+                    console.log('необходимо передать тип валидации');
+                    break;
+            }
+            return pattern.test(value);
+        }
     },
 }
 </script>

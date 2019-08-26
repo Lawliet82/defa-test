@@ -69,12 +69,8 @@ export default new Vuex.Store({
 
     REMOVE_STUDENT(state, value) {
       let checks = state.checked_students;
-
-          
-let students = state.students;
-
-          
-let student_index = students.findIndex( (x) => x.id === value);
+      let students = state.students;                
+      let student_index = students.findIndex( (x) => x.id === value);
 
       if (checks.length > 0) {
         let checked_id = checks.findIndex( (x) => x === value);
@@ -85,9 +81,8 @@ let student_index = students.findIndex( (x) => x.id === value);
 
     REMOVE_CHECKED(state, value) {
       let checks = state.checked_students;
- // массив ID студентов, не индексов
-          
-let students = state.students;
+      // массив ID студентов, не индексов
+      let students = state.students;
 
       for (let i = 0; i < checks.length; i++) {
         let student_index = students.findIndex( (x) => x.id === checks[i]);
@@ -99,9 +94,7 @@ let students = state.students;
     ADD_CHECKED(state, value) {
       const checks = state.checked_students;
       let index = checks.indexOf(value);
-
-          
-let student_id = state.students.findIndex( (x) => x.id === value);
+      let student_id = state.students.findIndex( (x) => x.id === value);
 
       if (index === -1) {
         state.checked_students.push(value);
