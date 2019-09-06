@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import {stat} from 'fs';
 
 Vue.use(Vuex);
 
@@ -59,7 +58,7 @@ export default new Vuex.Store({
     student         : {},
     checked_students: [],
     search_student  : null,
-    open_modal      : false,
+    is_open_modal      : false,
     edited_student  : null,
   },
   mutations: {
@@ -115,6 +114,7 @@ export default new Vuex.Store({
           break;
         }
       }
+      state.is_open_modal = true;
     },
 
     UPDATE_INFO(state, value) {
@@ -126,8 +126,28 @@ export default new Vuex.Store({
         }
       }
       state.edited_student = null;
+      state.is_open_modal = false;
     },
 
+    CLEAR_CHECKED(state, checked_student_id) {
+      if (!state.is_open_modal) {
+
+        let id = state.checked_students.findIndex( (item) => item === checked_student_id);
+        let student = state.students.find( (x)=> x.id === checked_student_id );
+
+        student.checked = false;
+        state.edited_student = null;
+        state.checked_students.splice(id, 1);
+      }
+    },
+
+    MODAL_OPEN(state) {
+      state.is_open_modal = true;
+    },
+    
+    CLOSE_MODAL(state) {
+      state.is_open_modal = false;
+    }
 
   },
 
@@ -150,6 +170,15 @@ export default new Vuex.Store({
     update_info(store, value) {
       store.commit('UPDATE_INFO', value);
     },
+    close_modal(store) {
+      store.commit('CLOSE_MODAL');
+    },
+    modal_open(store) {
+      store.commit('MODAL_OPEN');
+    },
+    clear_checked(store, ckecked_student) {
+      store.commit('CLEAR_CHECKED', ckecked_student);
+    }
   },
 
   getters: {

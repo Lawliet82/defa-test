@@ -1,8 +1,8 @@
 <template>
     <div class="modal">
-        <button class="modal__open" @click="show_modal=true">Добавить студента</button>
-        <div class="modal__overlay" v-show="show_modal || get_edited !== null" @click="show_modal=false"></div>
-        <div class="modal__wrap" v-show="show_modal || get_edited !== null">
+        <button class="modal__open" @click="add_new_student">Добавить студента</button>
+        <div class="modal__overlay" v-show="is_open_modal" @click="hide_modal"></div>
+        <div class="modal__wrap" v-show="is_open_modal">
             <form action="" class="modal__form" @submit.prevent="validate">
                 <h3 class="modal__error-message" v-if="errors.length">
                     <b>При заполнении формы возникли ошибки:</b>
@@ -14,7 +14,7 @@
                         {{ error }}
                     </li>
                 </ul>
-                <button class="modal__close" type="button" @click="show_modal=false">X</button>
+                <button class="modal__close" type="button" @click="hide_modal">X</button>
                 <input type="text" class="modal__input" placeholder="Имя" v-model="student.name">
                 <input type="text" class="modal__input" placeholder="Фамилия" v-model="student.surname">
                 <input type="text" class="modal__input" placeholder="Дата рождения" v-model="student.date">
@@ -27,11 +27,10 @@
 
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapState } from 'vuex';
 export default {
     data() {
         return {
-            show_modal: false,
             student: {
                 name: '',
                 surname: '',
@@ -46,19 +45,31 @@ export default {
         ...mapGetters([
             'get_edited',
         ]),
+        ...mapState([
+            'is_open_modal'
+        ]),
+
+        load_edited() {
+            return this.get_edited
+        }
     },
-    updated() {
-        if (this.get_edited) {
-            // this.student.name = this.get_edited.name;
-            // this.student.surname = this.get_edited.surname;
-            // this.student.date = this.get_edited.date;
-            // this.student.group = this.get_edited.group;
+    watch: {
+        load_edited() {
+            if (this.get_edited) {
+                this.student.name = this.get_edited.name;
+                this.student.surname = this.get_edited.surname;
+                this.student.date = this.get_edited.date;
+                this.student.group = this.get_edited.group;
+            }
         }
     },
     methods: {
         ...mapActions([
             'add',
-            'update_info'
+            'update_info',
+            'modal_open',
+            'close_modal',
+            'clear_checked',
         ]),
         sendStudent() {
             this.add({
@@ -138,6 +149,21 @@ export default {
                     break;
             }
             return pattern.test(value);
+        },
+
+        add_new_student() {
+            this.student.name = '';
+            this.student.surname = '';
+            this.student.date = '';
+            this.student.group = '';
+            this.modal_open();
+        },
+
+        hide_modal() {
+            this.close_modal();
+            if (this.get_edited) {
+                this.clear_checked(this.get_edited.id);
+            }
         }
     },
 }
